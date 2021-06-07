@@ -1,0 +1,173 @@
+//BRYAN ALEXANDER MARTINEZ GUZMAN 0909-20-6903
+// EXAMEN FINAL - SERIE II - PILA- PUSH AND POP 
+
+
+#include <iostream>
+#include <stdlib.h>
+
+using namespace std;
+
+
+//Estructura de la agrupacion de la variable PILA
+
+struct Pila{
+		int scope;
+	int espacio;
+	int* mort;
+};
+
+//INSTRUCCIONES SOBRE LA PILA 
+
+struct Pila* creat(int espacio){
+	
+	//RESERVACION DE BLOQUE DE MEMORIA
+	struct Pila* pila = (struct Pila*)malloc(sizeof(struct Pila)); 
+	//TAMAÑO(Su capacidad) DE LA PILA
+	pila->espacio = espacio; 
+	//INICIAR al tope de la pila
+	pila->scope = -1; 
+	//ALMACENAR DATOS INGRESADOS
+	pila->mort = (int*)malloc(pila->espacio*sizeof(int)); 
+	return pila;
+}
+
+//FUNCION PARA VISUALIZAR SI LA PILA ESTA CON ELEMENTOS DENTRO DE ELLA
+
+int full(struct Pila* pila){
+	return pila->scope == pila->espacio-1;
+}
+	
+//FUNCION PARA VISUALIZAR SI LA PILA ESTA SIN NINGUN ELEMENTO DENTRO DE ELLA
+
+int empty (struct Pila* pila){
+	return pila->scope == -1;
+	}
+
+//AGREGAR UNA NOTA A LA PILA
+
+void PUSH(struct Pila* pila, int elemento){
+	if (full(pila))
+		return;
+	pila->mort[++pila->scope] = elemento;
+}
+
+//FUNCION PARA QUITAR UNA NOTA INGRESADA
+
+int POP(struct Pila* pila){
+	if (empty(pila))
+		return INT_MIN;
+	return pila->mort[pila->scope--];
+}
+
+//NUMERO DE ELEMENTOS SE INGRESARAN
+
+int NOEM(struct Pila* pila){
+	return pila->scope+1;
+}
+
+//FUNCION PARA MOSTRAR POR PANTALLA LA PILA QUE SE HA CREADO
+void imprimir(struct Pila* pila){
+	for (int i = 0; i <= pila->scope; i++)
+		printf("\t%i\n", pila->mort[i]);	
+}
+
+//FUNCION A UTILIZAR PARA LA PILA COMO TAL (LA PRINCIPAL)
+int main(int argc, char** argv) {
+	
+	struct Pila* pila;
+	
+	int option=0;
+	int xyz;
+	int notas;
+	
+	//Menu que se mostrara por pantalla dentro de nuestro do while
+	
+	do{
+		
+		
+		system("cls");
+		
+		cout<<"\t \t \t \t \t \t--SERIE 2--" << endl;
+		
+		cout<<"\t \t \t \t \t PILAS UTILIZANDO PUSH Y POP" << endl;
+		cout<<"\t \t \t \t \t BRYAN MARTINEZ 0909-20-6903 \n" << endl;
+		cout<<"\t \t Instrucciones:Al momento de ingresar cantidad de cursos ha calificar" << endl;
+		cout<<"\t \t ir ingresando notas en opcion de push, al querer utilizar opcion POP," << endl;
+		cout<<"\t \t puede verificar en opcion MOSTRAR PILA, la funcion que se realizo dentro " << endl;
+		cout<<"\t \t de la pila se ira viendo al mostrarse, notando la calificacion tomada." << endl;
+		
+		
+		cout<<"\n------ MENU DE OPCIONES------"<<endl;
+		
+			cout<<"\n1- ESTABLECER TAMAÑO DE ARRAY"<<endl;
+			cout<<"2- FUNCION PUSH"<<endl;
+			cout<<"3- FUNCION POP"<<endl;
+			cout<<"4- MOSTRAR PILA"<<endl;
+			cout<<"5- FINALIZAR";
+			cout<<"\n\nOPCIONES A ESCOGER: ";
+			cin>>option;
+		
+		//Opciones a presentar 
+		
+		switch(option){
+			
+			//Case 1 es la opcion para poder interactuar dinamicamente con el usuario el que el nos diga
+			//Cuantas notas va a ingresar, esto abrira los espacios necesarios que desea para colocar las notas a la pila
+			
+			case 1: cout<<"\n\t CUANTAS CALIFICACIONES INGRESARA: ";
+					cin>>xyz;
+					pila=creat(xyz); 
+				break;
+			
+			//Case 2 el que ira tomando y colocando a la fila los punteos que se iran ingresando
+				
+			case 2:	cout<<"\tCALIFICACION A INGRESAR: ";
+					cin>>notas;
+					PUSH(pila, notas);
+					break;
+			
+			//Case 3 el retirar de la PILA un elemento utilizando el POP como tal.
+			
+			case 3:	cout<<"\tCALIFICACION RETIRADA \t";
+					POP(pila);
+					
+					system("pause");
+					cout<<"\tCALIFICACION RETIRADA DE LA PILA \t";
+					break;
+			
+			//Case 4 imprimir por pantalla los punteos que tenemos en nuestra pila
+			
+			case 4:	cout<<"\n \tCALIFICACIONES INGRESADAS\n";
+					imprimir(pila);
+					system("pause");
+					break;
+			
+			case 5:	break; 
+					
+					//Parte de arriba case 5 para finalizar el programa
+					
+					//Parte de abajo default si en dado caso es una opcion que no esta en el programa
+					//Este mostratara por pantalla lo que tenemos el cout, diciendo opcion incorrecta
+			
+			default:
+						cout<<"\t \t \t :::::::::::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
+						cout<<" \t \t \t - - OPCION INCORRECTA, POR FAVOR VUELVA A INTENTARLO - -"<< endl;
+						cout<<"\t \t \t \t UTILIZAR SOLAMENTE OPCIONES DEL 1 AL 5."<< endl;	
+						cout<<"\t \t \t :::::::::::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
+						
+						system("pause");
+						system("cls");		
+			
+				
+
+		}
+		
+	}while(option!=5);
+	
+
+	
+	return 0;
+}
+
+//BRYAN ALEXANDER MARTINEZ GUZMAN 0909-20-6903
+//PROGRAMACION - SERIE II - PILA - PUSH AND POP
